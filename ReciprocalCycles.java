@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.math.BigDecimal;
 
 public class ReciprocalCycles {
@@ -12,18 +13,32 @@ public class ReciprocalCycles {
 		}
 		catch(ArithmeticException e) {
 		    testDeci = numerator.divide(denominator, 10000, BigDecimal.ROUND_DOWN);
-		    findReciprocal(testDeci);
+		    System.out.println(findReciprocal(testDeci));
 		}
 	}
 	
 	private int findReciprocal(BigDecimal test) {
 	    
 	    char[] characterArray;
-	    int reciprocal = 0;
-	    int counter = 2;
+		char[] testArray1;
+		char[] testArray2;
+	    int counter = 0;
+		int endNumber = 0;
 	    
 	    characterArray = (test.toString()).toCharArray();
 
-	    return reciprocal;
+		while(counter < 5000) {
+			for(int i =  counter; i < (5000 - counter); i++) {
+				testArray1 = Arrays.copyOfRange(characterArray, counter + 2, counter + 2 + i);
+				testArray2 = Arrays.copyOfRange(characterArray, counter + 3 + i, counter + 3 + i + i);
+				System.out.println(testArray1);
+				System.out.println(testArray2);
+				if(Arrays.equals(testArray1, testArray2)) {
+					return (i + 1);
+				}
+			}
+			counter++;
+		}
+	    return 0 ;
 	}
 }
