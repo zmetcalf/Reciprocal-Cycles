@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 public class ReciprocalCycles {
 
 	private int recipAmount;
-    private int precision = 100000;
+    private int precision = 10000;
     	
 	private BigDecimal testDeci;
 	private BigDecimal highestDeci = new BigDecimal(0.0);
@@ -20,7 +20,7 @@ public class ReciprocalCycles {
 		        testDeci = NUMERATOR.divide(denominator, BigDecimal.ROUND_UNNECESSARY);
 		    }
 		    catch(ArithmeticException e) {
-		        testDeci = NUMERATOR.divide(denominator, precision, BigDecimal.ROUND_DOWN);
+		        testDeci = NUMERATOR.divide(denominator, precision, BigDecimal.ROUND_UP);
 		        recipAmount = findReciprocal(testDeci);
 		    
 		        if(BigDecimal.valueOf(recipAmount).compareTo(highestDeci) == 1) {
@@ -39,10 +39,13 @@ public class ReciprocalCycles {
 		char[] testArray2;
 	    int counter = 1;
 		int endNumber = 0;
+		int simpleIt = 0;
 	    
 	    characterArray = (test.toString()).toCharArray();
 
-        if(characterArray[2] == characterArray[3]) {
+        if(characterArray[2] == characterArray[3] && 
+				characterArray[7] == characterArray[26] &&
+				characterArray[2] == characterArray[1231]) {
             return 1;
         }
 
@@ -51,7 +54,8 @@ public class ReciprocalCycles {
 				testArray1 = Arrays.copyOfRange(characterArray, counter + 2, counter + 2 + i);
 				testArray2 = Arrays.copyOfRange(characterArray, counter + 3 + i, counter + 3 + i + i);
 				if(Arrays.equals(testArray1, testArray2)) {
-					return (i + 1);
+					if(Arrays.equals(testArray1, Arrays.copyOfRange(characterArray, counter + 4 + i + i, counter + 22 + i + i + i)));
+						return (i + 1);
 				}
 			}
 			counter++;
