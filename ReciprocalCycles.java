@@ -16,16 +16,11 @@ public class ReciprocalCycles {
 	
 	public ReciprocalCycles() {
 		while(denominator.compareTo(UPTO) == -1) {
-		    try {
-		        testDeci = NUMERATOR.divide(denominator, BigDecimal.ROUND_UNNECESSARY);
-		    }
-		    catch(ArithmeticException e) {
 		        testDeci = NUMERATOR.divide(denominator, precision, BigDecimal.ROUND_UP);
 		        recipAmount = findReciprocal(testDeci);
 		    
-		        if(BigDecimal.valueOf(recipAmount).compareTo(highestDeci) == 1) {
-		            highestDeci = denominator;
-		        }
+			if(BigDecimal.valueOf(recipAmount).compareTo(highestDeci) >= 0) {
+			    highestDeci = denominator;
 		    }
 		    denominator = denominator.add(COUNTER);
 		}
@@ -37,6 +32,7 @@ public class ReciprocalCycles {
 	    char[] characterArray;
 		char[] testArray1;
 		char[] testArray2;
+		char[] testArray3;
 	    int counter = 1;
 		int endNumber = 0;
 		int simpleIt = 0;
@@ -53,9 +49,9 @@ public class ReciprocalCycles {
 			for(int i =  counter; i < ((precision / 2) - counter - 5); i++) {
 				testArray1 = Arrays.copyOfRange(characterArray, counter + 2, counter + 2 + i);
 				testArray2 = Arrays.copyOfRange(characterArray, counter + 3 + i, counter + 3 + i + i);
-				if(Arrays.equals(testArray1, testArray2)) {
-					if(Arrays.equals(testArray1, Arrays.copyOfRange(characterArray, counter + 4 + i + i, counter + 22 + i + i + i)));
-						return (i + 1);
+				testArray3 = Arrays.copyOfRange(characterArray, counter + 4 + i + i, counter + 4 + i + i + i);
+				if(Arrays.equals(testArray1, testArray2) && Arrays.equals(testArray1, testArray3)) {
+					return (i + 1);		
 				}
 			}
 			counter++;
